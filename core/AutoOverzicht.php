@@ -44,7 +44,7 @@ class AutoOverzicht
 
             return true;
         });
-        print_r($filterd);
+
         return $filterd;
     }
 
