@@ -8,7 +8,6 @@ function AutoFactory($autoConstructor)
         $min = isset($_GET['min']) ? $_GET['min'] : null;
         $max = isset($_GET['max']) ? $_GET['max'] : null;
         $autos = $autoConstructor->filterAutoByPrice($autos, $min, $max);
-        print_r($autos);
         $out = "<table>";
 
         foreach ($autos as $auto) {
