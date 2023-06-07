@@ -5,8 +5,10 @@ function AutoFactory($autoConstructor)
     if (isset($_GET['submit'])) {
         $autos = $autoConstructor->getAuto($_GET['merk']);
 
-        $autos = $autoConstructor->filterAutoByPrice($autos);
-
+        $min = isset($_GET['min']) ? $_GET['min'] : null;
+        $max = isset($_GET['max']) ? $_GET['max'] : null;
+        $autos = $autoConstructor->filterAutoByPrice($autos, $min, $max);
+        print_r($autos);
         $out = "<table>";
 
         foreach ($autos as $auto) {

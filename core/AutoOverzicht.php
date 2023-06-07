@@ -29,38 +29,33 @@ class AutoOverzicht
         return $gefilterdeAuto;
     }
 
-    public function filterAutoByPrice($list)
+    public function filterAutoByPrice($data, $min = null, $max = null, $key = 'prijs')
     {
-        $gefilterdeAuto = [];
 
-        foreach ($list as $item) {
-            if (isset($_GET['min'])) {
-                if ($item->prijs >= $_GET['min']) {
-                    if (!in_array($item, $gefilterdeAuto)) {
-                        $gefilterdeAuto[] = $item;
-                    }
-                }
+
+        $filterd = array_filter($data, function ($item) use ($data, $min, $max, $key) {
+            $value = $item->{$key};
+            if ($max !== null && $value > $max) {
+                return false;
+            }
+            if ($min !== null && $value < $min) {
+                return false;
             }
 
-            if (isset($_GET['max'])) {
-                if ($item->prijs <= $_GET['max']) {
-                    if (!in_array($item, $gefilterdeAuto)) {
-                        $gefilterdeAuto[] = $item;
-                    }
-                }
-
-            }
-        }
-        print_r($gefilterdeAuto);
-        return $gefilterdeAuto;
+            return true;
+        });
+        print_r($filterd);
+        return $filterd;
     }
 
-    public function add($autos)
+    public
+    function add($autos)
     {
         $this->auto[] = $autos;
     }
 
-    public function getMerken()
+    public
+    function getMerken()
     {
         $merken = [];
         foreach ($this->auto as $autos) {
